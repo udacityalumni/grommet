@@ -14,6 +14,9 @@ const TYPE_TALL = 'tall';
 
 export default class Brick extends Component {
   render () {
+    console.warn(
+      'Brick: component has been deprecated. Use Box instead.'
+    );
     let widthUnit = 1;
     let heightUnit = 1;
 
@@ -97,7 +100,7 @@ export default class Brick extends Component {
   }
 };
 
-Brick.propTypes = {
+Brick.propTypes = { // remove in 1.0, use Box
   colorIndex: PropTypes.string,
   href: PropTypes.string,
   label: PropTypes.string,

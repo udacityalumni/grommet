@@ -217,10 +217,18 @@ export default class Meter extends Component {
     //   result = 0;
     // }
     if (props.hasOwnProperty('important')) {
+      console.warn(
+        'Meter: important prop has been deprecated. ' +
+        'Use a activeIndex instead.'
+      );
       result = props.important;
     }
     series.some(function (data, index) {
       if (data.important) {
+        console.warn(
+          'Meter: seriesp[].important has been deprecated. ' +
+          'Use a activeIndex instead.'
+        );
         result = index;
         return true;
       }
@@ -325,6 +333,12 @@ export default class Meter extends Component {
       if (!active) {
         active = series[0];
       }
+      if (active.label) {
+        console.warn(
+          'Meter: series[].label has been deprecated. ' +
+          'Use a separate Label instead.'
+        );
+      }
       fields = {
         value: active.value,
         label: active.label,
@@ -342,6 +356,10 @@ export default class Meter extends Component {
     }
     let units;
     if (this.props.units) {
+      console.warn(
+        'Meter: units prop has been deprecated. ' +
+        'Use a separate Label instead.'
+      );
       units = (
         <span className={`${CLASS_ROOT}__value-units large-number-font`}>
           {this.props.units}
@@ -368,6 +386,10 @@ export default class Meter extends Component {
     const { min, max } = this.state;
     let minLabel;
     if (min.label) {
+      console.warn(
+        'Meter: min.label has been deprecated. ' +
+        'Use a separate Label instead.'
+      );
       minLabel = (
         <div className={`${CLASS_ROOT}__minmax-min`}>
           {min.label}
@@ -376,6 +398,10 @@ export default class Meter extends Component {
     }
     let maxLabel;
     if (max.label) {
+      console.warn(
+        'Meter: max.label has been deprecated. ' +
+        'Use a separate Label instead.'
+      );
       maxLabel = (
         <div className={`${CLASS_ROOT}__minmax-max`}>
           {max.label}
@@ -465,6 +491,10 @@ export default class Meter extends Component {
     if (legend || series) {
 
       if (legend) {
+        console.warn(
+          'Meter: legend prop has been deprecated. ' +
+          'Use a separate Legend instead.'
+        );
         if ('inline' !== legend.placement) {
           legendElement = this._renderLegend();
         } else {
@@ -550,19 +580,19 @@ Meter.propTypes = {
     PropTypes.number
   ]),
   onActive: PropTypes.func,
-  size: PropTypes.oneOf(['xsmall', 'small', 'medium', 'large', 'xlarge']),
   series: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string, // remove in 1.0
     value: PropTypes.number.isRequired,
     colorIndex: PropTypes.string,
-    important: PropTypes.bool,
+    important: PropTypes.bool, // remove in 1.0, use activeIndex
     onClick: PropTypes.func
   })),
+  size: PropTypes.oneOf(['xsmall', 'small', 'medium', 'large', 'xlarge']),
   stacked: PropTypes.bool,
   tabIndex: PropTypes.string,
   threshold: PropTypes.number,
   thresholds: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string,
+    label: PropTypes.string, // remove in 1.0?
     value: PropTypes.number.isRequired,
     colorIndex: PropTypes.string
   })),

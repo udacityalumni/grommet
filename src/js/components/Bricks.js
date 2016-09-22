@@ -9,6 +9,9 @@ const CLASS_ROOT = CSSClassnames.BRICKS;
 
 export default class Bricks extends Component {
   render () {
+    console.warn(
+      'Bricks: component has been deprecated. Use Box instead.'
+    );
     let classes = classnames(CLASS_ROOT, this.props.className);
 
     return (
@@ -18,5 +21,7 @@ export default class Bricks extends Component {
     );
   }
 };
+
+// remove in 1.0, use Box
 
 Bricks.displayName = 'Bricks';
