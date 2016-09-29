@@ -5,16 +5,14 @@ import classnames from 'classnames';
 import KeyboardAccelerators from '../utils/KeyboardAccelerators';
 import Drop from '../utils/Drop';
 import { findAncestor } from '../utils/DOM';
-import Button from './Button';
 
-import SearchIcon from './icons/base/Search';
 import CSSClassnames from '../utils/CSSClassnames';
 
-const CLASS_ROOT = CSSClassnames.SEARCH_INPUT;
+const CLASS_ROOT = CSSClassnames.TEXT_INPUT;
 const INPUT = CSSClassnames.INPUT;
 const FORM_FIELD = CSSClassnames.FORM_FIELD;
 
-export default class SearchInput extends Component {
+export default class TextInput extends Component {
 
   constructor(props, context) {
     super(props, context);
@@ -107,7 +105,7 @@ export default class SearchInput extends Component {
       event.initEvent('change', true, true);
     }
     // We use dispatchEvent to have the browser fill out the event fully.
-    this.inputRef.dispatchEvent(event);
+    this.componentRef.dispatchEvent(event);
     // Manually dispatched events aren't delivered by React, so we notify too.
     this.props.onDOMChange(event);
   }
@@ -161,7 +159,9 @@ export default class SearchInput extends Component {
       let suggestion = this.props.suggestions[this.state.activeSuggestionIndex];
       this.setState({value: suggestion});
       if (this.props.onSelect) {
-        this.props.onSelect({target: this.inputRef, suggestion: suggestion});
+        this.props.onSelect({
+          target: this.componentRef, suggestion: suggestion
+        });
       }
     }
   }
@@ -169,7 +169,9 @@ export default class SearchInput extends Component {
   _onClickSuggestion (suggestion) {
     this.setState({value: suggestion, dropActive: false});
     if (this.props.onSelect) {
-      this.props.onSelect({target: this.inputRef, suggestion: suggestion});
+      this.props.onSelect({
+        target: this.componentRef, suggestion: suggestion
+      });
     }
   }
 
@@ -180,7 +182,7 @@ export default class SearchInput extends Component {
     });
     // delay to wait out subsequent render after state change
     setTimeout(() => {
-      this.inputRef.select();
+      this.componentRef.select();
     }, 10);
   }
 
@@ -223,6 +225,7 @@ export default class SearchInput extends Component {
   render () {
     let classes = classnames(
       CLASS_ROOT,
+      INPUT,
       {
         [`${CLASS_ROOT}--active`]: this.state.active
       },
@@ -230,51 +233,27 @@ export default class SearchInput extends Component {
     );
 
     return (
-      <div ref={ref => this.componentRef = ref} className={classes}>
-        <input ref={ref => this.inputRef = ref}
-          className={`${INPUT} ${CLASS_ROOT}__input`}
-          id={this.props.id} name={this.props.name}
-          value={this._renderLabel(this.props.value)}
-          defaultValue={this._renderLabel(this.props.defaultValue)}
-          placeholder={this.props.placeHolder}
-          autoComplete="off"
-          onChange={this._onInputChange}
-          onFocus={this._onFocus} />
-        <Button className={`${CLASS_ROOT}__control`} icon={<SearchIcon />}
-          onClick={this._onAddDrop} />
-      </div>
+      <input ref={ref => this.componentRef = ref}
+        id={this.props.id} name={this.props.name}
+        className={classes}
+        value={this._renderLabel(this.props.value)}
+        defaultValue={this._renderLabel(this.props.defaultValue)}
+        placeholder={this.props.placeHolder}
+        autoComplete="off"
+        onChange={this._onInputChange}
+        onFocus={this._onFocus} />
     );
   }
 
 }
 
-SearchInput.propTypes = {
-  defaultValue: PropTypes.oneOfType([
-    PropTypes.shape({
-      label: PropTypes.string,
-      value: PropTypes.string
-    }),
-    PropTypes.string
-  ]),
+TextInput.propTypes = {
+  defaultValue: PropTypes.string,
   id: PropTypes.string,
   name: PropTypes.string,
   onDOMChange: PropTypes.func,
   onSelect: PropTypes.func,
   placeHolder: PropTypes.string,
-  suggestions: PropTypes.arrayOf(
-    PropTypes.oneOfType([
-      PropTypes.shape({
-        label: PropTypes.node,
-        value: PropTypes.any
-      }),
-      PropTypes.string
-    ])
-  ),
-  value: PropTypes.oneOfType([
-    PropTypes.shape({
-      label: PropTypes.string,
-      value: PropTypes.string
-    }),
-    PropTypes.string
-  ])
+  suggestions: PropTypes.arrayOf(PropTypes.string),
+  value: PropTypes.string
 };

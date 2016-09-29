@@ -1,19 +1,15 @@
-exports[`SearchInput has correct default options 1`] = `
+exports[`Select has correct default options 1`] = `
 <div
-  className="grommetux-search-input">
+  className="grommetux-select"
+  onClick={[Function bound _onAddDrop]}>
   <input
-    autoComplete="off"
-    className="grommetux-input grommetux-search-input__input"
-    defaultValue={undefined}
-    id="item1"
-    name="item-1"
-    onChange={[Function bound _onInputChange]}
+    className="grommetux-input grommetux-select__input"
+    disabled={true}
     onFocus={[Function bound _onFocus]}
-    placeholder={undefined}
     value="one" />
   <button
     aria-label={undefined}
-    className="grommetux-button grommetux-search-input__control grommetux-button--plain grommetux-button--icon"
+    className="grommetux-button grommetux-select__control grommetux-button--plain grommetux-button--icon"
     disabled={false}
     href={undefined}
     id={undefined}
@@ -26,18 +22,18 @@ exports[`SearchInput has correct default options 1`] = `
     <span
       className="grommetux-button__icon">
       <svg
-        aria-labelledby="search-title"
-        className="grommetux-control-icon grommetux-control-icon-search grommetux-control-icon--responsive"
+        aria-labelledby="caret-down-title"
+        className="grommetux-control-icon grommetux-control-icon-caret-down grommetux-control-icon--responsive"
         height="24px"
         role="img"
         version="1.1"
         viewBox="0 0 24 24"
         width="24px">
         <title
-          id="search-title">
+          id="caret-down-title">
           <span
-            id="search">
-            search
+            id="caret-down">
+            caret-down
           </span>
         </title>
         <g>
@@ -45,10 +41,12 @@ exports[`SearchInput has correct default options 1`] = `
             fill="none"
             height="24"
             width="24"
-            x="0" />
-          <path
-            d="M18,9.5c0,4.6944-3.8056,8.5-8.5,8.5 S1,14.1944,1,9.5S4.8056,1,9.5,1S18,4.8056,18,9.5z M16,16l7,7"
+            x="0"
+            y="0" />
+          <polygon
             fill="none"
+            id="drop-carrot"
+            points="4.8571,8 19.1429,8 12,18"
             stroke="#000000"
             strokeMiterlimit="10"
             strokeWidth="2" />

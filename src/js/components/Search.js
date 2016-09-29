@@ -11,6 +11,7 @@ import SearchIcon from './icons/base/Search';
 import CSSClassnames from '../utils/CSSClassnames';
 
 const CLASS_ROOT = CSSClassnames.SEARCH;
+const INPUT = CSSClassnames.INPUT;
 const BACKGROUND_COLOR_INDEX = CSSClassnames.BACKGROUND_COLOR_INDEX;
 
 export default class Search extends Component {
@@ -243,6 +244,12 @@ export default class Search extends Component {
     }
   }
 
+  _onMouseUp(event) {
+    // This fixes a Safari bug which prevents the input
+    // text from being selected on focus.
+    event.preventDefault();
+  }
+
   _onSink (event) {
     event.stopPropagation();
     event.nativeEvent.stopImmediatePropagation();
@@ -278,8 +285,7 @@ export default class Search extends Component {
         [`${BACKGROUND_COLOR_INDEX}-${this.props.dropColorIndex}`]:
           this.props.dropColorIndex,
         [`${CLASS_ROOT}__drop`]: true,
-        [`${CLASS_ROOT}__drop--controlled`]: !(this.state.inline),
-        [`${CLASS_ROOT}__drop--large`]: this.props.large
+        [`${CLASS_ROOT}__drop--controlled`]: !(this.state.inline)
       }
     );
 
@@ -290,7 +296,7 @@ export default class Search extends Component {
           autoComplete="off"
           defaultValue={this.props.defaultValue}
           value={this.props.value}
-          className={`${CLASS_ROOT}__input`}
+          className={`${INPUT} ${CLASS_ROOT}__input`}
           onChange={this._onChangeInput} />
       );
     }
@@ -354,8 +360,8 @@ export default class Search extends Component {
         [`${CLASS_ROOT}--fill`]: this.props.fill,
         [`${CLASS_ROOT}--icon-align-${this.props.iconAlign}`]:
           this.props.iconAlign,
+        [`${CLASS_ROOT}--pad-${this.props.pad}`]: this.props.pad,
         [`${CLASS_ROOT}--inline`]: this.state.inline,
-        [`${CLASS_ROOT}--large`]: this.props.large && ! this.props.size,
         [`${CLASS_ROOT}--${this.props.size}`]: this.props.size
       },
       this.props.className
@@ -370,10 +376,11 @@ export default class Search extends Component {
             autoComplete="off"
             defaultValue={this._renderLabel(this.props.defaultValue)}
             value={this._renderLabel(this.props.value)}
-            className={`${CLASS_ROOT}__input`}
+            className={`${INPUT} ${CLASS_ROOT}__input`}
             onFocus={this._onFocusInput}
             onBlur={this._onBlurInput}
-            onChange={this._onChangeInput} />
+            onChange={this._onChangeInput}
+            onMouseUp={this._onMouseUp} />
           <SearchIcon />
         </div>
       );
@@ -400,14 +407,15 @@ Search.propTypes = {
   dropAlign: Drop.alignPropType,
   dropColorIndex: PropTypes.string,
   fill: PropTypes.bool,
-  iconAlign: React.PropTypes.oneOf(['start', 'end']),
-  id: React.PropTypes.string,
+  iconAlign: PropTypes.oneOf(['start', 'end']),
+  id: PropTypes.string,
   inline: PropTypes.bool,
   onDOMChange: PropTypes.func,
   onSelect: PropTypes.func,
+  pad: PropTypes.oneOf(['small', 'medium']),
   placeHolder: PropTypes.string,
   responsive: PropTypes.bool,
-  size: React.PropTypes.oneOf(['small', 'medium', 'large']),
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
   suggestions: PropTypes.arrayOf(
     PropTypes.oneOfType([
       PropTypes.shape({
