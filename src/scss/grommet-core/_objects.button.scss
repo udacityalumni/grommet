@@ -31,7 +31,7 @@ $button-horizontal-padding: round($inuit-base-spacing-unit) - $button-border-wid
   input[type="button"],
   input[type="submit"],
   button:not(.#{$grommet-namespace}button) {
-    @include basic-button();
+/*     @include basic-button(); */  /* This breaks buttons from other modules :( */
   }
 
   a.#{$grommet-namespace}button {
