@@ -28,12 +28,9 @@ $button-horizontal-padding: round($inuit-base-spacing-unit) - $button-border-wid
 }
 
 .grommet {
-  input[type="button"],
-  input[type="submit"],
-  button:not(.#{$grommet-namespace}button) {
-/*     @include basic-button(); */  /* This breaks buttons from other modules :( */
-  }
-
+  // Deleted the non grommet ux button selector here
+  // Since it was messing with buttons from outside modules.
+  // Use the grommetux-button selector to style buttons appropriately
   a.#{$grommet-namespace}button {
     text-decoration: none;
 
