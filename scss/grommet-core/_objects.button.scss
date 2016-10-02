@@ -23,17 +23,8 @@ $button-horizontal-padding: round($inuit-base-spacing-unit) - $button-border-wid
 }
 
 .grommet {
-  input[type="button"],
-  input[type="submit"],
-  button:not(.#{$grommet-namespace}button) {
-    @include basic-button();
-
-    &:focus {
-      border-color: $focus-border-color;
-      box-shadow: 0 0 1px 1px $focus-border-color;
-    }
-  }
-
+  // Removed the offending button selector
+  // That was causing the editor to be messed up
   a.#{$grommet-namespace}button {
     text-decoration: none;
 

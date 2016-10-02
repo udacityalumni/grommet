@@ -123,6 +123,7 @@ SocialShare.propTypes = {
   text: _react.PropTypes.string,
   title: _react.PropTypes.string,
   type: _react.PropTypes.oneOf(['email', 'facebook', 'twitter', 'linkedin', 'google']).isRequired
+  a11yTitle: _react.PropTypes.string
 };
 
 SocialShare.defaultProps = {
